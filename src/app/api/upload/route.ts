@@ -109,7 +109,13 @@ export async function POST(request: Request) {
         } catch (error) {
             await client.query('ROLLBACK');
             console.error('Transaction error:', error);
-            throw error;
+            return NextResponse.json(
+                {
+                    error: 'Ошибка транзакции',
+                    details: error instanceof Error ? error.message : 'Неизвестная ошибка'
+                },
+                { status: 500 }
+            );
         } finally {
             client.release();
         }

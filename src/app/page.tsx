@@ -57,7 +57,13 @@ export default function Home() {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || 'Неизвестная ошибка сервера');
+                setStatus({
+                    loading: false,
+                    progress: 0,
+                    message: 'Ошибка при обработке файла',
+                    error: data.error || 'Неизвестная ошибка сервера',
+                });
+                return;
             }
 
             console.log(data.sampleErrors);
