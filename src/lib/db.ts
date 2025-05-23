@@ -31,6 +31,13 @@ export async function updateProduct(article: string, quantity: number, price: nu
     );
 }
 
+export async function clearQuantity() {
+    await pool.query(
+        `UPDATE products 
+         SET quantity = 0`,
+    )
+}
+
 export async function addProduct(
     article: string,
     brand: string,

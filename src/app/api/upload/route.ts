@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import * as XLSX from 'xlsx';
-import pool, {addProduct, checkProductExists, getProductCount, updateProduct} from '@/lib/db';
+import pool, {addProduct, checkProductExists, clearQuantity, getProductCount, updateProduct} from '@/lib/db';
 
 interface ExcelProduct {
     'Артикул'?: unknown;
@@ -64,6 +64,7 @@ export async function POST(request: Request) {
 
         try {
             await client.query('BEGIN');
+
 
             for (const [index, row] of jsonData.entries()) {
                 try {
